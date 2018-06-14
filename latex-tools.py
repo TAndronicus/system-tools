@@ -1,6 +1,8 @@
-from os import listdir, remove
 import os.path
+from os import listdir, remove
+
 import Constants
+
 
 def delete_aux_files(path):
     files = listdir(path)
