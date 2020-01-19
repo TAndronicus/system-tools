@@ -1,11 +1,10 @@
 from os.path import isdir
-from os import listdir, remove
+from os import listdir
 import re
+import shutil
+import Constants
 
 dry_run = True
-m2_path = '/home/jb/.m2/repository/'
-version_regex = '^\d[.\d]*$'
-
 
 def check_and_clean(path):
     files = listdir(path)
@@ -19,13 +18,13 @@ def check_and_clean(path):
     elif len(files) == 1:
         return
     else:
-        print('update ' + path.split(m2_path)[1])
+        print('update ' + path.split(Constants.m2_path)[1])
         for file in files:
             if file == last:
                 continue
             print(file + ' (newer version: ' + last + ')')
             if not dry_run:
-                remove(file)
+                shutil.rmtree('/'.join([path, file]))
 
 
 def check_if_versions(files):
@@ -33,7 +32,7 @@ def check_if_versions(files):
         return None
     last = ''
     for file in files:
-        if re.match(version_regex, file):
+        if re.match(Constants.version_regex, file):
             if last == '':
                 last = file
             if len(last.split('.')) == len(file.split('.')):
@@ -57,4 +56,4 @@ assert check_if_versions(['1.11.12', '1.13']) is None
 assert check_if_versions(['1.11.12']) == '1.11.12'
 assert check_if_versions([]) is None
 
-check_and_clean(m2_path)
+check_and_clean(Constants.m2_path)
