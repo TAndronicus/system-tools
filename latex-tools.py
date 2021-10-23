@@ -26,4 +26,4 @@ def delete_files_by_extensions(path: str, extensions: []):
                 remove(path + '/' + file)
 
 
-delete_files_by_extensions(Constants.study_docs_path + '/Praca magisterska', Constants.latex_output)
+delete_files_by_extensions(Constants.STUDY_DOCS_PATH + '/Praca magisterska', Constants.LATEX_OUTPUTS)

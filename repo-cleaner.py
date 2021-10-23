@@ -20,7 +20,7 @@ def check_and_clean(path):
     elif len(directories) == 1:
         return
     else:
-        print('Update ' + path.split(Constants.m2_path)[1])
+        print('Update ' + path.split(Constants.M2_PATH)[1])
         for directory_name in directories:
             if directory_name == latest_version:
                 continue
@@ -68,4 +68,4 @@ def remove_unless_dry_run(path, directory_name):
 
 
 if __name__ == '__main__':
-    check_and_clean(Constants.m2_path)
+    check_and_clean(Constants.M2_PATH)
