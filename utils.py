@@ -1,3 +1,4 @@
+import os
 import semver
 import re
 import shutil
@@ -81,7 +82,11 @@ def is_newer(left, right):
 
 
 def remove_unless_dry_run(path, directory_name):
+    dest_path = '/'.join([path, directory_name])
     if dry_run:
-        print('/'.join([path, directory_name]) + ' will be removed')
+        print(dest_path + ' will be removed')
     else:
-        shutil.rmtree('/'.join([path, directory_name]))
+        try:
+            shutil.rmtree(dest_path)
+        except NotADirectoryError:
+            os.remove(dest_path)
