@@ -5,6 +5,7 @@ STUDY_DOCS_PATH = '/media/jb/145C91ED5C91CA3E/Dokumenty/Uczelnia'
 M2_PATH = '/home/jb/.m2/repository/'
 
 JETBRAINS_PATH = '/home/jb/.local/share/JetBrains'
+JETBRAINS_CACHE_PATH = '/home/jb/.cache/JetBrains'
 IDEA_PREFIX = 'IntelliJIdea'
 PYCHARM_PREFIX = 'PyCharm'
 IDE_PREFIXES = [IDEA_PREFIX, PYCHARM_PREFIX]

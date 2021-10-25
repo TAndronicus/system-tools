@@ -5,11 +5,12 @@ from utils import get_latest_version, remove_unless_dry_run
 import Constants
 
 
-def check_and_clean(path):
-    clean_meta(path)
+def check_and_clean(meta_path, cache_path):
+    clean_meta(meta_path)
     for ide_catalog in Constants.IDE_CATALOGS:
         print('Cleaning binaries for ' + ide_catalog)
-        clean_binaries_and_plugins('/'.join([path, Constants.TOOLBOX_CATALOG, ide_catalog, Constants.INNER_CATALOG]))
+        clean_binaries_and_plugins('/'.join([meta_path, Constants.TOOLBOX_CATALOG, ide_catalog, Constants.INNER_CATALOG]))
+    clean_caches(cache_path)
 
 
 def clean_binaries_and_plugins(path):
@@ -30,11 +31,18 @@ def clean_binaries_and_plugins(path):
 def clean_meta(path):
     files = listdir(path)
     for prefix in Constants.IDE_PREFIXES:
-        clean_meta_for_ide(path, files, prefix)
+        print('Cleaning meta for ' + prefix)
+        clean_data_for_ide(path, files, prefix)
 
 
-def clean_meta_for_ide(path, files, prefix):
-    print('Cleaning meta for ' + prefix)
+def clean_caches(path):
+    files = listdir(path)
+    for prefix in Constants.IDE_PREFIXES:
+        print('Cleaning caches for ' + prefix)
+        clean_data_for_ide(path, files, prefix)
+
+
+def clean_data_for_ide(path, files, prefix):
     ide_versions = to_versions_map(files, prefix)
     latest_version = get_latest_version(ide_versions.keys())
     for current_version, current_name in ide_versions.items():
@@ -51,4 +59,4 @@ def to_versions_map(files, prefix):
 
 
 if __name__ == '__main__':
-    check_and_clean(Constants.JETBRAINS_PATH)
+    check_and_clean(Constants.JETBRAINS_PATH, Constants.JETBRAINS_CACHE_PATH)
